@@ -6,26 +6,27 @@
 #include  "bst.h"
 
 BST<std::string> makeTree(const char* filename) {
+  // поместите сюда свой код
   BST<std::string> Tree;
-  std::ifstream ser(filename);
-  if (!ser.is_open()) {
+  std::ifstream fin(filename);
+  if (!fin.is_open()) {
       std::cout << "File not open!" << std::endl;
       return Tree;
   }
-  char stchka;
-  std::string word_srt = "";
-  while (!ser.eof()) {
-      stchka = ser.get();
-      if (stchka <= 'Z' && str >= 'A') {
-          stchka = stchka + ('a' - 'A');
+  char strchka_w;
+  std::string slovo = "";
+  while (!fin.eof()) {
+      strchka_w = fin.get();
+      if (strchka_w <= 'Z' && strchka_w >= 'A') {
+          strchka_w = strchka_w + ('a' - 'A');
       }
-      if (stchka <= 'z' && stchka >= 'a') {
-           word_srt += stchka;
+      if (strchka_w <= 'z' && strchka_w >= 'a') {
+          slovo += strchka_w;
       } else {
-          Tree.add( word_srt);
-           word_srt = "";
+          Tree.add(slovo);
+          slovo = "";
       }
   }
-  ser.close();
+  fin.close();
   return Tree;
 }
