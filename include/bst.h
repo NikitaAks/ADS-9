@@ -1,6 +1,8 @@
 // Copyright 2021 NNTU-CS
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
+#ifndef INCLUDE_BSTH
+#define INCLUDE_BSTH
 #pragma once
 #pragma once
 template<typename T>
@@ -8,23 +10,23 @@ class BST {
  private:
   struct Node {
   T value;
-  int chetchik = 0;
-  Node* levo = nullptr;
-  Node* pravo = nullptr;;
+  int count = 0;
+  Node* left = nullptr;
+  Node* right = nullptr;;
   };
   Node* root;
   Node* addNode(Node* root, const T& val) {
     if (root == nullptr) {
       root = new Node;
       root->value = val;
-      root->chetchik = 1;
-      root->levo = root->pravo = nullptr;
+      root->count = 1;
+      root->left = root->right = nullptr;
     } else if (root->value < val) {
-        root->levo = addNode(root->levo, val);
+        root->left = addNode(root->left, val);
       } else if (root->value > val) {
-          root->pravo = addNode(root->pravo, val);
+          root->right = addNode(root->right, val);
         } else {
-            root->chetchik++;
+            root->count++;
           }
     return root;
     }
@@ -32,27 +34,29 @@ class BST {
       if (root == nullptr) {
         return 0;
       } else if (root->value == val) {
-          return root->;
+          return root->count;
         } else if (root->value < val) {
-            return searchNode(root->levo, val);
+            return searchNode(root->left, val);
           } else {
-              return searchNode(root->pravo, val);
+              return searchNode(root->right, val);
             }
     }
     int depth_p(Node* root) {
-      int Levo = 0, Pravo = 0;
+      int Lt = 0, Rt = 0;
       if (root == nullptr) {
         return 0;
       } else {
-          Levo = depth_p(root->levo);
-          Pravo = depth_p(root->pravo);
+          Lt = depth_p(root->left);
+          Rt = depth_p(root->right);
         }
-        if (Pravo > Levo) {
-            return ++Pravo;
+        if (Rt > Lt) {
+            return ++Rt;
         } else {
-            return ++Levo;
+            return ++Lt;
           }
     }
+
+#endif  // INCLUDE_BST_H_
  public:
   BST() :root(nullptr) {}
   void Add(const T& val) {
@@ -65,4 +69,5 @@ class BST {
     return depth_p(root) - 1;
   }
 };
-#endif  // INCLUDE_BST_H_
+
+#endif  // INCLUDE_BSTH
