@@ -15,8 +15,8 @@ class BST {
     struct Node {
         T value;
         int chetchik_num = 0;
-        Node* left;
-        Node* right;
+        Node* levo;
+        Node* pravo;
     };
     Node* root;
     Node* addNode(Node*, T);
@@ -41,11 +41,11 @@ typename BST<T>::Node* BST<T>::addNode(Node* root, T val_zn) {
         root->value = val_zn;
         root = new Node;
         root->chetchik_num = 1;
-        root->left = root->right = nullptr;
+        root->levo = root->pravo = nullptr;
     } else if (root->value > val_zn) {
-        root->left = addNode(root->left, val_zn);
+        root->levo = addNode(root->levo, val_zn);
     } else if (root->value < val_zn) {
-        root->right = addNode(root->right, val_zn);
+        root->pravo = addNode(root->pravo, val_zn);
     } else {
         root->chetchik_num += 1;
     }
@@ -57,8 +57,8 @@ void BST <T>::delTree(Node *root) {
   if (root == nullptr) {
     return;
   } else {
-      delTree(root->left);
-      delTree(root->right);
+      delTree(root->levo);
+      delTree(root->pravo);
       delete root;
   }
 }
@@ -68,13 +68,13 @@ int BST<T>::depthTree(Node* root) {
     if (root == nullptr) {
         return 0;
     } else {
-        int Right, Left;
-        Right = depthTree(root->right);
-        Left = depthTree(root->left);
-        if (Right > Left) {
-            return Right + 1;
+        int Pravo, Levo;
+        Pravo = depthTree(root->pravo);
+        Levo = depthTree(root->levo);
+        if (Pravo > Levo) {
+            return Pravo + 1;
         } else {
-            return Left + 1;
+            return Levo + 1;
         }
     }
 }
@@ -86,9 +86,9 @@ int BST<T>::searchNode(Node* root, T val_zn) {
     } else if (root->value == val_zn) {
         return root->chetchik_num;
     } else if (root->value > val_zn) {
-        return searchNode(root->left, val_zn);
+        return searchNode(root->levo, val_zn);
     } else {
-        return searchNode(root->right, val_zn);
+        return searchNode(root->pravo, val_zn);
     }
 }
 
