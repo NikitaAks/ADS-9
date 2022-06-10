@@ -1,73 +1,68 @@
-// Copyright 2021 NNTU-CS
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
-#ifndef INCLUDE_BSTH
-#define INCLUDE_BSTH
-#pragma once
+
 #pragma once
 template<typename T>
 class BST {
  private:
   struct Node {
   T value;
-  int count = 0;
+  int chetchik_num = 0;
   Node* left = nullptr;
   Node* right = nullptr;;
   };
   Node* root;
-  Node* addNode(Node* root, const T& val) {
+  Node* addNode(Node* root, const T& val_zn) {
     if (root == nullptr) {
       root = new Node;
-      root->value = val;
-      root->count = 1;
+      root->value = val_zn;
+      root->chetchik_num = 1;
       root->left = root->right = nullptr;
-    } else if (root->value < val) {
-        root->left = addNode(root->left, val);
-      } else if (root->value > val) {
-          root->right = addNode(root->right, val);
+    } else if (root->value < val_zn) {
+        root->left = addNode(root->left, val_zn);
+      } else if (root->value > val_zn) {
+          root->right = addNode(root->right, val_zn);
         } else {
-            root->count++;
+            root->chetchik_num++;
           }
     return root;
     }
-    int searchNode(Node* root, const T& val) {
+    int searchNode(Node* root, const T& val_zn) {
       if (root == nullptr) {
         return 0;
-      } else if (root->value == val) {
-          return root->count;
-        } else if (root->value < val) {
-            return searchNode(root->left, val);
+      } else if (root->value == val_zn) {
+          return root->chetchik_num;
+        } else if (root->value < val_zn) {
+            return searchNode(root->left, val_zn);
           } else {
-              return searchNode(root->right, val);
+              return searchNode(root->right, val_zn);
             }
     }
     int depth_p(Node* root) {
-      int Lt = 0, Rt = 0;
+      int x = 0, xx = 0;
       if (root == nullptr) {
         return 0;
       } else {
-          Lt = depth_p(root->left);
-          Rt = depth_p(root->right);
+          x = depth_p(root->left);
+          xx = depth_p(root->right);
         }
-        if (Rt > Lt) {
-            return ++Rt;
+        if (xx > x) {
+            return ++xx;
         } else {
-            return ++Lt;
+            return ++x;
           }
     }
 
-#endif  // INCLUDE_BST_H_
  public:
   BST() :root(nullptr) {}
-  void Add(const T& val) {
-    root = addNode(root, val);
+  void Add(const T& val_zn) {
+    root = addNode(root, val_zn);
   }
-  int search(const T& val) {
-    return searchNode(root, val);
+  int search(const T& val_zn) {
+    return searchNode(root, val_zn);
   }
   int depth() {
     return depth_p(root) - 1;
   }
 };
-
-#endif  // INCLUDE_BSTH
+#endif  // INCLUDE_BST_H_
