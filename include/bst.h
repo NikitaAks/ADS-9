@@ -2,6 +2,7 @@
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
 #pragma once
+
 template<typename T>
 class BST {
  private:
@@ -64,3 +65,4 @@ class BST {
     return depth_p(root) - 1;
   }
 };
+#endif  // INCLUDE_BST_H_
