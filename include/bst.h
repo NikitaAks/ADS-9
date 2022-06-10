@@ -1,6 +1,6 @@
 // Copyright 2021 NNTU-CS
-#ifndef INCLUDE_BSTH
-#define INCLUDE_BSTH
+#ifndef INCLUDE_BST_H_
+#define INCLUDE_BST_H_
 #pragma once
 #pragma once
 template<typename T>
@@ -65,4 +65,4 @@ class BST {
     return depth_p(root) - 1;
   }
 };
-#endif  // INCLUDE_BSTH
+#endif  // INCLUDE_BST_H_
