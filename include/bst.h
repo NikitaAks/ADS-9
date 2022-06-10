@@ -52,7 +52,6 @@ class BST {
             return ++x;
           }
     }
-
  public:
   BST() :root(nullptr) {}
   void Add(const T& val_zn) {
