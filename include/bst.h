@@ -1,16 +1,15 @@
 // Copyright 2021 NNTU-CS
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
-#pragma once
 
 template <typename T>
 class BST {
  public:
+    BST();
+    ~BST();
     void add(T);
     int depth();
     int search(T);
-    BST();
-    ~BST();
  private:
     struct Node {
         T value;
