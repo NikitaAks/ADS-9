@@ -1,109 +1,68 @@
 // Copyright 2021 NNTU-CS
-#ifndef INCLUDE_BST_H_
-#define INCLUDE_BST_H_
-
-template <typename T>
+#ifndef INCLUDE_BSTH
+#define INCLUDE_BSTH
+#pragma once
+#pragma once
+template<typename T>
 class BST {
- public:
-    BST();
-    ~BST();
-    void add(T);
-    int depth();
-    int search(T);
  private:
-    struct Node {
-        T value;
-        int chetchik_num = 0;
-        Node* levo;
-        Node* pravo;
-    };
-    Node* root;
-    Node* addNode(Node*, T);
-    int depthTree(Node*);
-    int searchNode(Node*, T);
-    void delTree(Node*);
-};
-
-template <typename T>
-BST<T>::BST(): root(nullptr) {}
-
-template <typename T>
-BST<T>::~BST() {
-    if (root) {
-        delTree(root);
-    }
-}
-
-template<typename T>
-typename BST<T>::Node* BST<T>::addNode(Node* root, T val_zn) {
+  struct Node {
+  T value;
+  int chetchik = 0;
+  Node* levo = nullptr;
+  Node* pravo = nullptr;;
+  };
+  Node* root;
+  Node* addNode(Node* root, const T& val) {
     if (root == nullptr) {
-        root->value = val_zn;
-        root = new Node;
-        root->chetchik_num = 1;
-        root->levo = root->pravo = nullptr;
-    } else if (root->value > val_zn) {
-        root->levo = addNode(root->levo, val_zn);
-    } else if (root->value < val_zn) {
-        root->pravo = addNode(root->pravo, val_zn);
-    } else {
-        root->chetchik_num += 1;
-    }
-    return root;
-}
-
-template<typename T>
-void BST <T>::delTree(Node *root) {
-  if (root == nullptr) {
-    return;
-  } else {
-      delTree(root->levo);
-      delTree(root->pravo);
-      delete root;
-  }
-}
-
-template<typename T>
-int BST<T>::depthTree(Node* root) {
-    if (root == nullptr) {
-        return 0;
-    } else {
-        int Pravo, Levo;
-        Pravo = depthTree(root->pravo);
-        Levo = depthTree(root->levo);
-        if (Pravo > Levo) {
-            return Pravo + 1;
+      root = new Node;
+      root->value = val;
+      root->chetchik = 1;
+      root->levo = root->pravo = nullptr;
+    } else if (root->value < val) {
+        root->levo = addNode(root->levo, val);
+      } else if (root->value > val) {
+          root->pravo = addNode(root->pravo, val);
         } else {
-            return Levo + 1;
-        }
+            root->chetchik++;
+          }
+    return root;
     }
-}
-
-template<typename T>
-int BST<T>::searchNode(Node* root, T val_zn) {
-    if (root == nullptr) {
+    int searchNode(Node* root, const T& val) {
+      if (root == nullptr) {
         return 0;
-    } else if (root->value == val_zn) {
-        return root->chetchik_num;
-    } else if (root->value > val_zn) {
-        return searchNode(root->levo, val_zn);
-    } else {
-        return searchNode(root->pravo, val_zn);
+      } else if (root->value == val) {
+          return root->;
+        } else if (root->value < val) {
+            return searchNode(root->levo, val);
+          } else {
+              return searchNode(root->pravo, val);
+            }
     }
-}
-
-template<typename T>
-void BST<T>::add(T val_zn) {
-    root = addNode(root, val_zn);
-}
-
-template<typename T>
-int BST<T>::depth() {
-    return depthTree(root) - 1;
-}
-
-template<typename T>
-int BST<T>::search(T val_zn) {
-    return searchNode(root, val_zn);
-}
-
-#endif  // INCLUDE_BST_H_
+    int depth_p(Node* root) {
+      int Levo = 0, Pravo = 0;
+      if (root == nullptr) {
+        return 0;
+      } else {
+          Levo = depth_p(root->levo);
+          Pravo = depth_p(root->pravo);
+        }
+        if (Pravo > Levo) {
+            return ++Pravo;
+        } else {
+            return ++Levo;
+          }
+    }
+ public:
+  BST() :root(nullptr) {}
+  void Add(const T& val) {
+    root = addNode(root, val);
+  }
+  int search(const T& val) {
+    return searchNode(root, val);
+  }
+  int depth() {
+    return depth_p(root) - 1;
+  }
+};
+#endif  // INCLUDE_BSTH
